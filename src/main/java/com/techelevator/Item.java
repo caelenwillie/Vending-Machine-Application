@@ -5,13 +5,14 @@ import java.math.BigDecimal;
 public class Item {
 
     private String code;
-    private String snack;
+    private String name;
     private String price;
     private String category;
+    private String count = "5";
 
-    public Item(String code, String snack, String price, String category) {
+    public Item(String code, String name, String price, String category) {
         this.code = code;
-        this.snack = snack;
+        this.name = name;
         this.price = price;
         this.category = category;
     }
@@ -24,12 +25,12 @@ public class Item {
         this.code = code;
     }
 
-    public String getSnack() {
-        return snack;
+    public String getName() {
+        return name;
     }
 
-    public void setSnack(String snack) {
-        this.snack = snack;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPrice() {
@@ -46,5 +47,13 @@ public class Item {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
     }
 }
