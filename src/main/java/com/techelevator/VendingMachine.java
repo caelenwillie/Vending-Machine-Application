@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class VendingMachine {
 
-    public List<Item> importItems() {
+    public static List<Item> importItems() {
         List<Item> items = new ArrayList<>();
         File itemFile = new File("vendingmachine.csv");
         String[] itemInfo = new String[4];
@@ -17,12 +17,14 @@ public class VendingMachine {
             while(fileScanner.hasNextLine()) {
                 String itemLine = fileScanner.nextLine();
                 itemInfo = itemLine.split("\\|");
+
+                Item item = new Item(itemInfo[0], itemInfo[1], itemInfo[2], itemInfo[3]);
+                items.add(item);
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found - Vending machine temporarily out of service");
         }
-
-
+        return items;
     }
 
 }

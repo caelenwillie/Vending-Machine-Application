@@ -2,14 +2,14 @@ package com.techelevator;
 
 import java.math.BigDecimal;
 
-public abstract class Item extends VendingMachine {
+public class Item {
 
     private String code;
     private String snack;
-    private BigDecimal price;
+    private String price;
     private String category;
 
-    public Item(String code, String snack, BigDecimal price, String category) {
+    public Item(String code, String snack, String price, String category) {
         this.code = code;
         this.snack = snack;
         this.price = price;
@@ -32,11 +32,11 @@ public abstract class Item extends VendingMachine {
         this.snack = snack;
     }
 
-    public BigDecimal getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
