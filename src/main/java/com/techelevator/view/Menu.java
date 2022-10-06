@@ -1,8 +1,6 @@
 package com.techelevator.view;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Scanner;
 
 public class Menu {
@@ -50,4 +48,49 @@ public class Menu {
 		out.print(System.lineSeparator() + "Please choose an option >>> ");
 		out.flush();
 	}
+
+	//Balance Methods
+//	double balance = 0.00;
+//
+//	try (Scanner fileScanner = new Scanner(System.in)) {
+//
+//	} catch (IOException e) {
+//
+//	}
+//
+//	public double addToBalance() {
+//
+//		balance += input;
+//	}
+//
+//	try ()) {
+//
+//	} catch (IOException e) {
+//
+//	if (balance >= item.getPrice) {
+//
+//		public double updateBalance() {
+//			if () {
+//				balance -= item.getPrice()
+//			}
+//		}
+//	} else {
+//		System.out.println("No enough funds");
+//	}
+//
+//		try (Scanner fileScanner = new Scanner(sourceFile);
+//			 PrintWriter writer = new PrintWriter(destinationFile)
+//		) {
+//			while (fileScanner.hasNextLine()) {
+//				String line = fileScanner.nextLine();
+//				writer.println(line.replace(searchWord, replacementWord));
+//			}
+//		} catch (FileNotFoundException e) {
+//			System.out.println("File Not Found");
+//		}
+
+
+
+
+
 }

@@ -18,11 +18,11 @@ public class VendingMachine {
                 String itemLine = fileScanner.nextLine();
                 itemInfo = itemLine.split("\\|");
 
-                Item item = new Item(itemInfo[0], itemInfo[1], itemInfo[2], itemInfo[3]);
+                Item item = new Item(itemInfo[0], itemInfo[1], Double.parseDouble(itemInfo[2]), itemInfo[3], 5);
                 items.add(item);
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found - Vending machine temporarily out of service");
+            System.out.println("Sorry, vending machine temporarily out of service");
         }
         return items;
     }

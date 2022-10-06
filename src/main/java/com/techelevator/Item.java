@@ -6,15 +6,16 @@ public class Item {
 
     private String code;
     private String name;
-    private String price;
+    private double price;
     private String category;
-    private String count = "5";
+    private int count = 5;
 
-    public Item(String code, String name, String price, String category) {
+    public Item(String code, String name, double price, String category, int count) {
         this.code = code;
         this.name = name;
         this.price = price;
         this.category = category;
+        this.count = 5;
     }
 
     public String getCode() {
@@ -33,11 +34,11 @@ public class Item {
         this.name = name;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -49,11 +50,11 @@ public class Item {
         this.category = category;
     }
 
-    public String getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(String count) {
+    public void setCount(int count) {
         this.count = count;
     }
 }
