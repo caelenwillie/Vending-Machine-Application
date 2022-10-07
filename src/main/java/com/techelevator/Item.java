@@ -18,9 +18,7 @@ public class Item {
         this.count = 5;
     }
 
-    public String getCode() {
-        return code;
-    }
+    public String getCode() {return code;}
 
     public void setCode(String code) {
         this.code = code;
@@ -50,9 +48,7 @@ public class Item {
         this.category = category;
     }
 
-    public int getCount() {
-        return count;
-    }
+    public int getCount() {return count;}
 
     public void setCount(int count) {
         this.count = count;
@@ -60,13 +56,13 @@ public class Item {
 
     public String getSound() {
         String sound = "";
-        if (this.category == "chip") {
+        if (this.category.equals("Chip")) {
             sound = "Crunch Crunch, Yum!";
-        } else if (this.category == "candy") {
+        } else if (this.category.equals("Candy")) {
             sound = "Munch Munch, Yum!";
-        } else if (this.category == "drink") {
+        } else if (this.category.equals("Drink")) {
             sound = "Glug Glug, Yum!";
-        } else if (this.category == "gum") {
+        } else if (this.category.equals("Gum")) {
             sound = "Chew Chew, Yum!";
         }
         return sound;

@@ -8,8 +8,6 @@ import java.util.Scanner;
 
 public class VendingMachine {
 
-    List<Item> items = new ArrayList<>();
-
     public static List<Item> importItems() {
         List<Item> items = new ArrayList<>();
         File itemFile = new File("vendingmachine.csv");
