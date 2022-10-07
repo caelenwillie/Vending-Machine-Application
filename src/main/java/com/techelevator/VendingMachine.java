@@ -8,13 +8,15 @@ import java.util.Scanner;
 
 public class VendingMachine {
 
+    List<Item> items = new ArrayList<>();
+
     public static List<Item> importItems() {
         List<Item> items = new ArrayList<>();
         File itemFile = new File("vendingmachine.csv");
         String[] itemInfo = new String[4];
 
-        try(Scanner fileScanner = new Scanner(itemFile)) {
-            while(fileScanner.hasNextLine()) {
+        try (Scanner fileScanner = new Scanner(itemFile)) {
+            while (fileScanner.hasNextLine()) {
                 String itemLine = fileScanner.nextLine();
                 itemInfo = itemLine.split("\\|");
 
@@ -27,6 +29,15 @@ public class VendingMachine {
         return items;
     }
 
+    public String printItems() {
+        String itemsPrintOut = "";
+        for (int i =0; i < importItems().size(); i++) {
+            itemsPrintOut += importItems().get(i).getCode() + " " + importItems().get(i).getName() + " " + importItems().get(i).getPrice() + " " + importItems().get(i).getCategory() + " (" + importItems().get(i).getCount() + " still remaining)\n";
+        }
+        return itemsPrintOut;
+    }
 }
 
-// ["A1", "Potato Crisps", "3.05", "Chip"]
+//for (int i =0; i < importItems().size(); i++) {
+//        System.out.println(importItems().get(i).getCode() + " " + importItems().get(i).getName() + " " + importItems().get(i).getPrice() + " " + importItems().get(i).getCategory() + " (" + importItems().get(i).getCount() + " still remaining)");
+

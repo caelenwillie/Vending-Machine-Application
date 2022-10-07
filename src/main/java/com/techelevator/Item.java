@@ -57,4 +57,18 @@ public class Item {
     public void setCount(int count) {
         this.count = count;
     }
+
+    public String getSound() {
+        String sound = "";
+        if (this.category == "chip") {
+            sound = "Crunch Crunch, Yum!";
+        } else if (this.category == "candy") {
+            sound = "Munch Munch, Yum!";
+        } else if (this.category == "drink") {
+            sound = "Glug Glug, Yum!";
+        } else if (this.category == "gum") {
+            sound = "Chew Chew, Yum!";
+        }
+        return sound;
+    }
 }

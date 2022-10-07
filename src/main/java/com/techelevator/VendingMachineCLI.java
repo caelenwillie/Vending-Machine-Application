@@ -2,6 +2,8 @@ package com.techelevator;
 
 import com.techelevator.view.Menu;
 
+import java.util.Scanner;
+
 public class VendingMachineCLI extends VendingMachine {
 
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
@@ -15,7 +17,13 @@ public class VendingMachineCLI extends VendingMachine {
 	private static final String[] PURCHASE_MENU_OPTIONS = { PURCHASE_MENU_OPTION_FEED_MONEY, PURCHASE_MENU_OPTION_SELECT_PRODUCT, PURCHASE_MENU_OPTION_FINISH_TRANSACTION };
 
 	private Menu menu;
-	int balance = 0;
+	double balance = 0.0;
+	Scanner userInput = new Scanner(System.in);
+
+	public double addToBalance (double additionalFunds) {
+		balance += additionalFunds;
+		return balance;
+	}
 
 
 	public static void main(String[] args) {
@@ -35,25 +43,28 @@ public class VendingMachineCLI extends VendingMachine {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
-				for (int i =0; i < importItems().size(); i++) {
-					System.out.println(importItems().get(i).getCode() + " " + importItems().get(i).getName() + " " + importItems().get(i).getPrice() + " " + importItems().get(i).getCategory() + " (" + importItems().get(i).getCount() + " still remaining)");
-				}
+				System.out.println(printItems());
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				System.out.println();
-				System.out.println("Current money provided: $" + balance);
+				System.out.println("Your current is: $" + balance);
 				System.out.println();
-				menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
-					if (choice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
-						System.out.println("Test Working");
-//					} else if () {
-//
-//					} else if () {
-//
-//					} else {
-//
+				String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
+				if (purchaseChoice == PURCHASE_MENU_OPTION_FEED_MONEY) {
+					try {
+						System.out.println("How much money would you like to input? ");
+						String additionalFundsString = userInput.nextLine();
+						double additionalFunds = Double.parseDouble(additionalFundsString);
+						addToBalance(additionalFunds);
+					} catch (NumberFormatException e){
+						System.out.println("Please enter a valid numerical amount");
 					}
+				} else if (purchaseChoice == PURCHASE_MENU_OPTION_SELECT_PRODUCT) {
+					System.out.println("Test");
+				} else if (purchaseChoice == PURCHASE_MENU_OPTION_FINISH_TRANSACTION) {
+					System.out.println("Test");
+				}
 			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
-				System.out.println("Thank you for using the Vend-o-matic-800");
+				System.out.println("Thank you for using the Vend-o-matic-800!  Have a good day :)");
 				break;
 			}
 		}
@@ -62,12 +73,4 @@ public class VendingMachineCLI extends VendingMachine {
 
 }
 
-/*
-					1.  Display Vending Machine Options
 
-
-					2.  Give option to purchase an item
-					3.  Insert Money
-					4.  Check Balance
-
-				 */
