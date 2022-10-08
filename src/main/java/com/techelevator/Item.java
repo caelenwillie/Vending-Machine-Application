@@ -10,12 +10,11 @@ public class Item {
     private String category;
     private int count = 5;
 
-    public Item(String code, String name, double price, String category, int count) {
+    public Item(String code, String name, double price, String category) {
         this.code = code;
         this.name = name;
         this.price = price;
         this.category = category;
-        this.count = 5;
     }
 
     public String getCode() {return code;}

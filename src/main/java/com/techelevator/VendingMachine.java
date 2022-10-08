@@ -18,7 +18,7 @@ public class VendingMachine {
                 String itemLine = fileScanner.nextLine();
                 itemInfo = itemLine.split("\\|");
 
-                Item item = new Item(itemInfo[0], itemInfo[1], Double.parseDouble(itemInfo[2]), itemInfo[3], 5);
+                Item item = new Item(itemInfo[0], itemInfo[1], Double.parseDouble(itemInfo[2]), itemInfo[3]);
                 items.add(item);
             }
         } catch (FileNotFoundException e) {

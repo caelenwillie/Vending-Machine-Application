@@ -3,20 +3,24 @@ package com.techelevator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Balance {
+public class Change extends Balance {
+    private int change;
 
-    private double balance = 0.00;
-
-    public double getBalance() {
-        return balance;
+    public Change(int change) {
+        this.change = change;
     }
 
-    public void addToBalance(double moneyToAdd) {
-        balance = balance + moneyToAdd;
+    public int getChange() {
+        return change;
     }
 
-    public void removeFromBalance(double snackPrice) {
-        balance = balance - snackPrice;
+    public void setChange(int change) {
+        this.change = change;
+    }
+
+    public int maxCoinCount(double balance, double coin) {
+        int count = (int) (balance / coin);
+        return count;
     }
 
     public String changeCalculator(double balance) {
@@ -41,9 +45,7 @@ public class Balance {
                 }
             }
         }
-        changePrintOut = "You're change is: " + quarterCount + " quarters, " + dimeCount + " dimes, " + nickleCount + " nickles";
+        changePrintOut = "You're change is: " + quarterCount + "quarters, " + dimeCount + "dimes, " + nickleCount + "nickles";
         return changePrintOut;
     }
-
-
 }
