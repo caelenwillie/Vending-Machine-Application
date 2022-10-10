@@ -3,10 +3,10 @@ package com.techelevator;
 import com.techelevator.view.Menu;
 
 import javax.sound.midi.Soundbank;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -62,32 +62,37 @@ public class VendingMachineCLI extends VendingMachine {
 						double additionalFunds = userInput.nextDouble();
 						balance.addToBalance(additionalFunds);
 						System.out.println("Your current balance is: " + df.format(balance.getBalance()));
+						try(FileWriter logWriter = new FileWriter(purchaseLog, true)) {
+							logWriter.append(LocalDateTime.now() + " FEED MONEY:" + " $" + (df.format(balance.getBalance() - additionalFunds)) + " $" + df.format(balance.getBalance()) + "\n");
+						} catch (IOException e) {
+							System.out.println("Sorry there was an error.  Please try again.");
+						}
 					} catch (NumberFormatException e){
 						System.out.println("Please enter a valid numerical amount");
 					}
 				} else if (purchaseChoice == PURCHASE_MENU_OPTION_SELECT_PRODUCT) {
 					printItems(currentItemsList);
 					System.out.println("Please enter the two digit code of the item you would like to order: ");
-					String orderCode = userInput.next();
+					String orderCode = userInput.next().toLowerCase();
 					for (Item item : currentItemsList) {
-						try (PrintWriter logWriter = new PrintWriter(purchaseLog)) {
-							if (orderCode.equals(item.getCode())) {
+							if (orderCode.equals(item.getCode().toLowerCase())) {
 								if (balance.getBalance() >= item.getPrice() && Integer.parseInt(item.getCount()) > 0) {
 									item.setCount("" + (Integer.parseInt(item.getCount())  - 1));
 									balance.removeFromBalance(item.getPrice());
 									System.out.println("Vending Selected Item: " + item.getName());
 									System.out.println(item.getSound());
 									System.out.println("Current Balance: " + df.format(balance.getBalance()));
-									logWriter.println("Test Print");
+									try(FileWriter logWriter = new FileWriter(purchaseLog, true)) {
+										logWriter.append(LocalDateTime.now() + " " + item.getName() + " " + item.getCode() + " $" + df.format(item.getPrice()) + " $" + df.format(balance.getBalance()) + "\n");
+									} catch (IOException e) {
+										System.out.println("Sorry there was an error.  Please try again.");
+									}
 								} else if (Integer.parseInt(item.getCount()) == 0) {
 									item.setCount("SOLD OUT");
 									System.out.println("Sorry, this item is currently Sold-Out");
 								} else if (balance.getBalance() < item.getPrice()) {
 									System.out.println("Sorry, the price of this item is greater than the available balance.  Please enter more funds.");
 								}
-							}
-							} catch (Exception e){
-								System.out.println("Sorry there was an Error.  Please try again.");
 							}
 						}
 

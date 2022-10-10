@@ -37,6 +37,9 @@ public class Balance {
         double balanceRemaining = 0;
         List<Integer> changeBack = new ArrayList<>();
         String changePrintOut = "";
+        String quarterString = "";
+        String nickleString = "";
+        String dimeString = "";
 
         if (balance > 0) {
             quarterCount = (int) (balance / quarter);
@@ -49,7 +52,22 @@ public class Balance {
                 }
             }
         }
-        changePrintOut = "You're change is: " + quarterCount + " quarters, " + dimeCount + " dimes, " + nickleCount + " nickles";
+        if (quarterCount == 1) {
+            quarterString = "quarter";
+        } else {
+            quarterString = "quarters";
+        }
+        if (dimeCount == 1) {
+            dimeString = "dime";
+        } else {
+            dimeString = "dimes";
+        }
+        if (nickleCount == 1) {
+            nickleString = "nickle";
+        } else {
+            nickleString = "nickles";
+        }
+        changePrintOut = "You're change is: " + quarterCount + " " + quarterString + ", " + dimeCount + " " + dimeString + ", " + nickleCount + " " + nickleString;
         return changePrintOut;
     }
 
