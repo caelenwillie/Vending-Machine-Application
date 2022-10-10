@@ -8,13 +8,14 @@ public class Item {
     private String name;
     private double price;
     private String category;
-    private int count = 5;
+    private String count;
 
-    public Item(String code, String name, double price, String category) {
+    public Item(String code, String name, double price, String category, String count) {
         this.code = code;
         this.name = name;
         this.price = price;
         this.category = category;
+        this.count = count;
     }
 
     public String getCode() {return code;}
@@ -47,9 +48,9 @@ public class Item {
         this.category = category;
     }
 
-    public int getCount() {return count;}
+    public String getCount() {return count;}
 
-    public void setCount(int count) {
+    public void setCount(String count) {
         this.count = count;
     }
 

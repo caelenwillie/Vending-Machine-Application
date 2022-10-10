@@ -2,10 +2,12 @@ package com.techelevator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Balance {
 
     private double balance = 0.00;
+    Scanner userInput = new Scanner(System.in);
 
     public double getBalance() {
         return balance;
@@ -18,6 +20,12 @@ public class Balance {
     public void removeFromBalance(double snackPrice) {
         balance = balance - snackPrice;
     }
+
+//    public double collectMoney() {
+//        System.out.println("How much money would you like to input? ");
+//        double additionalFunds = userInput.nextDouble();
+//        return additionalFunds;
+//    }
 
     public String changeCalculator(double balance) {
         double quarter = 0.25;

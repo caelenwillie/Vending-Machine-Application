@@ -18,7 +18,7 @@ public class VendingMachine {
                 String itemLine = fileScanner.nextLine();
                 itemInfo = itemLine.split("\\|");
 
-                Item item = new Item(itemInfo[0], itemInfo[1], Double.parseDouble(itemInfo[2]), itemInfo[3]);
+                Item item = new Item(itemInfo[0], itemInfo[1], Double.parseDouble(itemInfo[2]), itemInfo[3], "5");
                 items.add(item);
             }
         } catch (FileNotFoundException e) {
@@ -27,15 +27,14 @@ public class VendingMachine {
         return items;
     }
 
-    public String printItems() {
-        String itemsPrintOut = "";
-        for (int i =0; i < importItems().size(); i++) {
-            itemsPrintOut += importItems().get(i).getCode() + " " + importItems().get(i).getName() + " " + importItems().get(i).getPrice() + " " + importItems().get(i).getCategory() + " (" + importItems().get(i).getCount() + " still remaining)\n";
+    public void printItems(List<Item> products) {
+
+        for (int i = 0; i < products.size(); i++) {
+            if (Integer.parseInt(products.get(i).getCount()) > 0) {
+                System.out.printf("%s %-20s $%-7.2f %-7s %d items Left %n", products.get(i).getCode(), products.get(i).getName(), products.get(i).getPrice(), products.get(i).getCategory(), Integer.parseInt(products.get(i).getCount()));
+            } else {
+                System.out.printf("%s %-20s $%-7.2f %-7s SOLD OUT %n", products.get(i).getCode(), products.get(i).getName(), products.get(i).getPrice(), products.get(i).getCategory());
+            }
+            }
         }
-        return itemsPrintOut;
     }
-}
-
-//for (int i =0; i < importItems().size(); i++) {
-//        System.out.println(importItems().get(i).getCode() + " " + importItems().get(i).getName() + " " + importItems().get(i).getPrice() + " " + importItems().get(i).getCategory() + " (" + importItems().get(i).getCount() + " still remaining)");
-
