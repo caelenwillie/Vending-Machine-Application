@@ -50,17 +50,27 @@ public class VendingMachineCLI extends VendingMachine {
 
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				printItems(currentItemsList);
+
+				//Display Menu
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				System.out.println();
 				System.out.println("Current Money Provided: $" + decimalFormat.format(balance.getBalance()));
 				System.out.println();
 				String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
+
+				//Feed Money
 				if (purchaseChoice == PURCHASE_MENU_OPTION_FEED_MONEY) {
 					try {
-						System.out.println("How much money would you like to input? ");
+						System.out.println("How much money would you like to input?\nThis machine only accepts whole bills ($1, $5, $10, $20)");
 						double additionalFunds = userInput.nextDouble();
-						balance.addToBalance(additionalFunds);
-						System.out.println("Your current balance is: " + decimalFormat.format(balance.getBalance()));
+						if (additionalFunds == 1 || additionalFunds == 5 || additionalFunds == 10 || additionalFunds == 20) {
+								balance.addToBalance(additionalFunds);
+								System.out.println("Your current balance is: $" + decimalFormat.format(balance.getBalance()));
+							} else {
+								System.out.println("Sorry, this machine only accepts whole bills ($1, $5, $10, $20).\nPlease enter a valid amount.");
+							}
+
+						//Print Money Feed to Log
 						try(FileWriter logWriter = new FileWriter(purchaseLog, true)) {
 							logWriter.append(dateFormat.format(LocalDateTime.now()) + " FEED MONEY:" + " $" + (decimalFormat.format(balance.getBalance() - additionalFunds)) + " $" + decimalFormat.format(balance.getBalance()) + "\n");
 						} catch (IOException e) {
@@ -69,6 +79,8 @@ public class VendingMachineCLI extends VendingMachine {
 					} catch (NumberFormatException e){
 						System.out.println("Please enter a valid numerical amount");
 					}
+
+				//Select Purchase Menu & Select Item
 				} else if (purchaseChoice == PURCHASE_MENU_OPTION_SELECT_PRODUCT) {
 					printItems(currentItemsList);
 					System.out.println("Please enter the two digit code of the item you would like to order: ");
@@ -81,11 +93,15 @@ public class VendingMachineCLI extends VendingMachine {
 									System.out.println("Vending Selected Item: " + item.getName());
 									System.out.println(item.getSound());
 									System.out.println("Current Balance: " + decimalFormat.format(balance.getBalance()));
+
+									//Print Purchase to Log
 									try(FileWriter logWriter = new FileWriter(purchaseLog, true)) {
 										logWriter.append(dateFormat.format(LocalDateTime.now()) + " " + item.getName() + " " + item.getCode() + " $" + decimalFormat.format(item.getPrice()) + " $" + decimalFormat.format(balance.getBalance()) + "\n");
 									} catch (IOException e) {
 										System.out.println("Sorry there was an error.  Please try again.");
 									}
+
+								//Error Messages
 								} else if (Integer.parseInt(item.getCount()) == 0) {
 									item.setCount("SOLD OUT");
 									System.out.println("Sorry, this item is currently Sold-Out");
@@ -95,6 +111,7 @@ public class VendingMachineCLI extends VendingMachine {
 							}
 						}
 
+				//Finish Transaction & Return Change
 				} else if (purchaseChoice == PURCHASE_MENU_OPTION_FINISH_TRANSACTION) {
 					System.out.println(balance.changeCalculator(balance.getBalance()));
 					try(FileWriter logWriter = new FileWriter(purchaseLog, true)) {
@@ -103,6 +120,8 @@ public class VendingMachineCLI extends VendingMachine {
 						System.out.println("Sorry there was an error.  Please try again.");
 					}
 				}
+
+			//Exit Program
 			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
 				System.out.println("Thank you for using the Vendo-Matic-800!  Have a good day :)");
 				break;

@@ -7,10 +7,16 @@ import java.util.Scanner;
 public class Balance {
 
     private double balance = 0.00;
+    private Integer[] acceptablePayments = {1, 5, 10, 20};
+
     Scanner userInput = new Scanner(System.in);
 
     public double getBalance() {
         return balance;
+    }
+
+    public Integer[] getAcceptablePayments() {
+        return acceptablePayments;
     }
 
     public void addToBalance(double moneyToAdd) {
@@ -71,5 +77,8 @@ public class Balance {
         return changePrintOut;
     }
 
-
+    //TEST METHODS
+    public void addToBalance2(double moneyToAdd) {
+        balance = balance + moneyToAdd;
+    }
 }
