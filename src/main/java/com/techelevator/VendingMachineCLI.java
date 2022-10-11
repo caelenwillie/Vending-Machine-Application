@@ -2,12 +2,9 @@ package com.techelevator;
 
 import com.techelevator.view.Menu;
 
-import javax.sound.midi.Soundbank;
 import java.io.*;
 import java.text.DecimalFormat;
-import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
-import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDateTime;
@@ -39,7 +36,9 @@ public class VendingMachineCLI extends VendingMachine {
 	Balance balance = new Balance();
 	Scanner userInput = new Scanner(System.in);
 	File purchaseLog = new File("Log.txt");
-	DecimalFormat df = new DecimalFormat("0.00");
+	DecimalFormat decimalFormat = new DecimalFormat("0.00");
+	DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/mm/yyyy hh:mm:ss a");
+
 
 	public void run() {
 
@@ -53,7 +52,7 @@ public class VendingMachineCLI extends VendingMachine {
 				printItems(currentItemsList);
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				System.out.println();
-				System.out.println("Current Money Provided: $" + df.format(balance.getBalance()));
+				System.out.println("Current Money Provided: $" + decimalFormat.format(balance.getBalance()));
 				System.out.println();
 				String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
 				if (purchaseChoice == PURCHASE_MENU_OPTION_FEED_MONEY) {
@@ -61,9 +60,9 @@ public class VendingMachineCLI extends VendingMachine {
 						System.out.println("How much money would you like to input? ");
 						double additionalFunds = userInput.nextDouble();
 						balance.addToBalance(additionalFunds);
-						System.out.println("Your current balance is: " + df.format(balance.getBalance()));
+						System.out.println("Your current balance is: " + decimalFormat.format(balance.getBalance()));
 						try(FileWriter logWriter = new FileWriter(purchaseLog, true)) {
-							logWriter.append(LocalDateTime.now() + " FEED MONEY:" + " $" + (df.format(balance.getBalance() - additionalFunds)) + " $" + df.format(balance.getBalance()) + "\n");
+							logWriter.append(dateFormat.format(LocalDateTime.now()) + " FEED MONEY:" + " $" + (decimalFormat.format(balance.getBalance() - additionalFunds)) + " $" + decimalFormat.format(balance.getBalance()) + "\n");
 						} catch (IOException e) {
 							System.out.println("Sorry there was an error.  Please try again.");
 						}
@@ -81,9 +80,9 @@ public class VendingMachineCLI extends VendingMachine {
 									balance.removeFromBalance(item.getPrice());
 									System.out.println("Vending Selected Item: " + item.getName());
 									System.out.println(item.getSound());
-									System.out.println("Current Balance: " + df.format(balance.getBalance()));
+									System.out.println("Current Balance: " + decimalFormat.format(balance.getBalance()));
 									try(FileWriter logWriter = new FileWriter(purchaseLog, true)) {
-										logWriter.append(LocalDateTime.now() + " " + item.getName() + " " + item.getCode() + " $" + df.format(item.getPrice()) + " $" + df.format(balance.getBalance()) + "\n");
+										logWriter.append(dateFormat.format(LocalDateTime.now()) + " " + item.getName() + " " + item.getCode() + " $" + decimalFormat.format(item.getPrice()) + " $" + decimalFormat.format(balance.getBalance()) + "\n");
 									} catch (IOException e) {
 										System.out.println("Sorry there was an error.  Please try again.");
 									}
@@ -98,6 +97,11 @@ public class VendingMachineCLI extends VendingMachine {
 
 				} else if (purchaseChoice == PURCHASE_MENU_OPTION_FINISH_TRANSACTION) {
 					System.out.println(balance.changeCalculator(balance.getBalance()));
+					try(FileWriter logWriter = new FileWriter(purchaseLog, true)) {
+						logWriter.append(dateFormat.format(LocalDateTime.now()) + " GIVE CHANGE:" + " $" + (decimalFormat.format(balance.getBalance())) + " $0.00\n");
+					} catch (IOException e) {
+						System.out.println("Sorry there was an error.  Please try again.");
+					}
 				}
 			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
 				System.out.println("Thank you for using the Vendo-Matic-800!  Have a good day :)");
